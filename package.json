@@ -1,0 +1,25 @@
+{
+  "name": "ai-interview-coach",
+  "version": "1.0.0",
+  "description": "State-of-the-Art AI Interview Coach & Adaptive Preparation Platform",
+  "scripts": {
+    "server": "node server/server.js",
+    "client": "npm --prefix client run dev",
+    "dev:server": "node server/server.js",
+    "dev:client": "npm --prefix client run dev",
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "test": "node server/test_e2e.js",
+    "test:coding": "node server/test_coding_problems.js",
+    "test:evaluation": "node server/test_evaluation_and_variety.js"
+  },
+  "keywords": [
+    "ai-interview-coach",
+    "gemini",
+    "react",
+    "express",
+    "mock-interview",
+    "coding-sandbox"
+  ],
+  "author": "",
+  "license": "ISC"
+}
