@@ -10,7 +10,6 @@ class MemoryDbService {
   constructor() {
     this.users = new Map();
     this.interviews = new Map();
-    this.resumes = new Map();
     this.jobDescriptions = new Map();
     this.codingSubmissions = new Map();
     this.preparationPlans = new Map();
@@ -51,52 +50,7 @@ class MemoryDbService {
     this.users.set(DEMO_USER_ID, demoUser);
     this.users.set(demoUser.email, demoUser);
 
-    // 2. Demo Resume for Alex
-    const demoResume = {
-      _id: "res_alex_01",
-      userId: DEMO_USER_ID,
-      fileName: "Alex_Sharma_FullStack_Resume.pdf",
-      rawText: `Alex Sharma | Software Engineer
-Skills: React, TypeScript, Node.js, Express, Java, Spring Boot, PostgreSQL, MongoDB, Redis, Docker, AWS, Git.
-Experience:
-- Software Engineer at CloudScale Tech (2024 - Present): Built high-throughput microservices handling 25K RPM with Redis caching. Architected React dashboard with real-time WebSocket telemetry.
-- Junior Developer at DevFlow Labs (2022 - 2024): Migrated legacy REST APIs to Node.js / Express, reducing response latency by 35%. Optimized PostgreSQL query indices for high-volume transactions.
-Education:
-- B.S. in Computer Science (2018 - 2022), Top 5% Honors.
-Projects:
-- E-Commerce Scalable Platform: Distributed microservices architecture with Kafka event bus, Stripe payments, and Redis caching.
-- Real-time AI Code Reviewer: React & Node.js app integrating LLMs for automated pull request linting and performance scoring.`,
-      parsedData: {
-        skills: ["React", "TypeScript", "Node.js", "Express", "Java", "Spring Boot", "PostgreSQL", "MongoDB", "Redis", "Docker", "Kafka", "AWS"],
-        experience: [
-          { role: "Software Engineer", company: "CloudScale Tech", duration: "2024 - Present", bullets: ["Microservices at 25K RPM", "Real-time React WebSocket telemetry"] },
-          { role: "Junior Developer", company: "DevFlow Labs", duration: "2022 - 2024", bullets: ["35% latency reduction via Node.js", "PostgreSQL query index tuning"] }
-        ],
-        education: [{ degree: "B.S. Computer Science", institution: "Tech Institute", year: "2022" }],
-        projects: [
-          { title: "E-Commerce Scalable Platform", technologies: ["React", "Node.js", "Kafka", "Redis", "Stripe"], description: "High-concurrency distributed e-commerce backend." },
-          { title: "Real-time AI Code Reviewer", technologies: ["React", "Node.js", "Gemini API", "Docker"], description: "Automated PR linting and vulnerability detection." }
-        ],
-        certifications: ["AWS Certified Developer Associate", "Oracle Certified Java SE 11 Developer"]
-      },
-      generatedQuestions: [
-        {
-          projectTitle: "E-Commerce Scalable Platform",
-          question: "You mentioned using Kafka and Redis for your E-Commerce platform. How did you handle distributed cache invalidation and ensure idempotency during payment events?",
-          rationale: "Probes distributed systems design and financial consistency"
-        },
-        {
-          projectTitle: "Real-time AI Code Reviewer",
-          question: "How did you manage prompt latency and stream partial tokens to the React frontend without blocking rendering threads?",
-          rationale: "Tests frontend performance and modern streaming architectures"
-        }
-      ],
-      createdAt: new Date(Date.now() - 10 * 86400000)
-    };
-    this.resumes.set(demoResume._id, demoResume);
-    this.resumes.set(DEMO_USER_ID, demoResume);
-
-    // 3. Demo Past Interviews for Alex
+    // 2. Demo Past Interviews for Alex
     const pastInterview1 = {
       _id: "int_alex_hist_01",
       userId: DEMO_USER_ID,
@@ -351,19 +305,6 @@ Projects:
     const updated = { ...interview, ...updates };
     this.interviews.set(id, updated);
     return updated;
-  }
-
-  // --- RESUME METHODS ---
-  async saveResume(resumeData) {
-    const id = `res_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
-    const resume = { _id: id, createdAt: new Date(), ...resumeData };
-    this.resumes.set(id, resume);
-    this.resumes.set(resumeData.userId, resume);
-    return resume;
-  }
-
-  async getResumeByUserId(userId) {
-    return this.resumes.get(userId) || null;
   }
 
   // --- JOB DESCRIPTION METHODS ---

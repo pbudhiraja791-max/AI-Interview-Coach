@@ -16,7 +16,6 @@ export async function setupInterview(req, res) {
     } = req.body;
 
     const user = req.user;
-    const resumeData = await db.getResumeByUserId(user._id);
     const jobData = await db.getJobDescriptionByUserId(user._id);
 
     const interview = await db.createInterview({
@@ -43,7 +42,6 @@ export async function setupInterview(req, res) {
       previousQuestions: [],
       previousAnswers: [],
       previousScores: [],
-      resumeData,
       jobData
     }, customApiKey);
 
@@ -160,7 +158,6 @@ export async function getNextQuestion(req, res) {
     }
 
     const user = await db.findUserById(interview.userId);
-    const resumeData = await db.getResumeByUserId(interview.userId);
     const jobData = await db.getJobDescriptionByUserId(interview.userId);
 
     const previousQuestions = interview.questions;
@@ -203,7 +200,6 @@ export async function getNextQuestion(req, res) {
         previousQuestions,
         previousAnswers,
         previousScores,
-        resumeData,
         jobData
       }, customApiKey);
     }

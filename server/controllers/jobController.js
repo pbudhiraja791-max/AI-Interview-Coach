@@ -16,7 +16,12 @@ export async function analyzeJob(req, res) {
       return res.status(400).json({ success: false, message: 'Please provide job description text or upload a file' });
     }
 
-    const user = req.user;
+    const user = req.user || {
+      skills: ['React', 'Node.js', 'JavaScript', 'SQL', 'Java'],
+      targetRole: 'Full Stack Developer',
+      experienceLevel: '1-3 years',
+      _id: 'guest-candidate'
+    };
     const { customApiKey } = req.body;
     const matchResults = await matchJobDescription(
       rawText,
@@ -51,7 +56,8 @@ export async function analyzeJob(req, res) {
 
 export async function getJob(req, res) {
   try {
-    const job = await db.getJobDescriptionByUserId(req.user._id);
+    const userId = req.user?._id || 'guest-candidate';
+    const job = await db.getJobDescriptionByUserId(userId);
     res.json({ success: true, job });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

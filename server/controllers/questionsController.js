@@ -87,10 +87,12 @@ export async function practiceAnswer(req, res) {
       interviewType: "Technical"
     }, customApiKey);
 
-    // Award XP
-    const user = await db.findUserById(req.user._id);
-    if (user) {
-      await db.updateUser(user._id, { xp: (user.xp || 0) + 20 });
+    // Award XP if authenticated
+    if (req.user && req.user._id) {
+      const user = await db.findUserById(req.user._id);
+      if (user) {
+        await db.updateUser(user._id, { xp: (user.xp || 0) + 20 });
+      }
     }
 
     res.json({

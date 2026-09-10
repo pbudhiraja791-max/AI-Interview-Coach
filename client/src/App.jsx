@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { InterviewProvider } from './context/InterviewContext.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
@@ -27,6 +27,26 @@ import PreparationPlanPage from './pages/PreparationPlanPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
 
+import { useEffect } from 'react';
+
+function ScrollToHashElement() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
   if (loading) {
@@ -45,6 +65,7 @@ function ProtectedRoute({ children }) {
 export default function App() {
   return (
     <Router>
+      <ScrollToHashElement />
       <ThemeProvider>
         <AuthProvider>
           <InterviewProvider>
@@ -58,7 +79,16 @@ export default function App() {
                   <Route path="/signup" element={<SignupPage />} />
                   <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-                  {/* Onboarding */}
+                  {/* Core Modules - Accessible to all (Guests & Authenticated) */}
+                  <Route path="/questions" element={<QuestionBankPage />} />
+                  <Route path="/coding" element={<CodingInterviewPage />} />
+                  <Route path="/practice" element={<PracticePage />} />
+                  <Route path="/job-description" element={<JobDescriptionPage />} />
+                  <Route path="/resume" element={<Navigate to="/job-description" replace />} />
+                  <Route path="/progress" element={<ProgressPage />} />
+                  <Route path="/preparation-plan" element={<PreparationPlanPage />} />
+
+                  {/* Onboarding & Dashboard */}
                   <Route
                     path="/onboarding"
                     element={
@@ -67,8 +97,6 @@ export default function App() {
                       </ProtectedRoute>
                     }
                   />
-
-                  {/* Core Dashboard */}
                   <Route
                     path="/dashboard"
                     element={
@@ -78,7 +106,7 @@ export default function App() {
                     }
                   />
 
-                  {/* Interview Flow */}
+                  {/* Mock Interview Simulation Flow */}
                   <Route
                     path="/interview/setup"
                     element={
@@ -100,61 +128,6 @@ export default function App() {
                     element={
                       <ProtectedRoute>
                         <InterviewResultsPage />
-                      </ProtectedRoute>
-                    }
-                  />
-
-                  {/* Job Matcher */}
-                  <Route path="/resume" element={<Navigate to="/dashboard" replace />} />
-                  <Route
-                    path="/job-description"
-                    element={
-                      <ProtectedRoute>
-                        <JobDescriptionPage />
-                      </ProtectedRoute>
-                    }
-                  />
-
-                  {/* Coding, Practice & Questions */}
-                  <Route
-                    path="/coding"
-                    element={
-                      <ProtectedRoute>
-                        <CodingInterviewPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/practice"
-                    element={
-                      <ProtectedRoute>
-                        <PracticePage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/questions"
-                    element={
-                      <ProtectedRoute>
-                        <QuestionBankPage />
-                      </ProtectedRoute>
-                    }
-                  />
-
-                  {/* Progress & Plan */}
-                  <Route
-                    path="/progress"
-                    element={
-                      <ProtectedRoute>
-                        <ProgressPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/preparation-plan"
-                    element={
-                      <ProtectedRoute>
-                        <PreparationPlanPage />
                       </ProtectedRoute>
                     }
                   />

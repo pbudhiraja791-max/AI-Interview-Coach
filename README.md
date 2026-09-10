@@ -24,25 +24,21 @@ A complete, production-grade, state-of-the-art AI interview preparation platform
   - Answer Duration & Long Silence (>3s) detection
 - **Speech Synthesis**: AI interviewer speaks questions out loud with adjustable rate and voice selection.
 
-### 3. 📄 Resume Analyzer & Project Question Generator
-- Extracts skills, experience, and project claims from PDF, DOCX, and text resumes.
-- Automatically synthesizes deep-dive architectural questions based on the candidate's exact listed technologies.
-
-### 4. 💼 Job Description Skill Gap Matcher
+### 3. 💼 Job Description Skill Gap Matcher
 - Compares target job requirements against candidate's verified skills.
 - Computes **Job Match Score %** and generates an actionable gap matrix.
 
-### 5. 💻 Live Coding Studio
+### 4. 💻 Live Coding Studio
 - Data structure problem catalog with starter templates in **JavaScript, Python, Java, and C++**.
 - Live client-side JavaScript execution sandbox with instant test case results.
 - AI evaluation of **Time Complexity O(N)**, **Space Complexity O(N)**, Code Quality, Edge Cases, and optimization tips.
 
-### 6. 🪞 AI Interview Mirror & STAR Evaluation
+### 5. 🪞 AI Interview Mirror & STAR Evaluation
 - **Behavioral Evaluation**: Evaluates answers using the **STAR Framework** (Situation, Task, Action, Result).
 - **Interview Mirror**: Synthesizes the exact perception profile of the candidate from the hiring committee's viewpoint.
 - **Deep Mistake Explorer**: Explains *"What was missing"*, *"What was incorrect"*, *"Why it matters"*, and *"How to improve"*.
 
-### 7. 📅 7-Day Personalized Study Roadmap & Analytics
+### 6. 📅 7-Day Personalized Study Roadmap & Analytics
 - Analyzes weaknesses across past interviews to generate customized daily study plans with interactive checklists.
 - **Recharts Analytics**: Score trends over time, radar capability polygons, XP levels, and milestone badges.
 
@@ -117,7 +113,6 @@ CLIENT_URL=http://localhost:5173
 | `POST` | `/api/interviews/:id/answer` | Submit answer with speech metrics & receive AI feedback |
 | `POST` | `/api/interviews/:id/next-question` | Generate adaptive next question or follow-up |
 | `POST` | `/api/interviews/:id/complete` | Finalize report & generate Interview Mirror |
-| `POST` | `/api/resume/upload` | Parse PDF/DOCX resume & generate project questions |
 | `POST` | `/api/jobs/analyze` | Benchmark candidate skills against Job Description |
 | `POST` | `/api/coding/execute` | Run code against problem test cases |
 | `POST` | `/api/coding/evaluate` | AI complexity & code quality review |

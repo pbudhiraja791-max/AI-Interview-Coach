@@ -5,15 +5,13 @@ import {
   getBookmarked,
   practiceAnswer
 } from '../controllers/questionsController.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { authenticateToken, optionalAuthenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.use(authenticateToken);
-
-router.get('/', getQuestions);
-router.get('/bookmarked', getBookmarked);
-router.post('/:questionId/bookmark', toggleBookmark);
-router.post('/practice-answer', practiceAnswer);
+router.get('/', optionalAuthenticateToken, getQuestions);
+router.post('/practice-answer', optionalAuthenticateToken, practiceAnswer);
+router.get('/bookmarked', authenticateToken, getBookmarked);
+router.post('/:questionId/bookmark', authenticateToken, toggleBookmark);
 
 export default router;

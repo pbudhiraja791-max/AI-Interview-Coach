@@ -157,7 +157,6 @@ export class MockAIEngine {
     personality = "Professional",
     previousQuestions = [],
     previousAnswers = [],
-    resumeData = null,
     jobData = null
   }) {
     const qCount = previousQuestions.length + 1;
@@ -171,30 +170,6 @@ export class MockAIEngine {
       prefix = "Good! Moving to the next question: ";
     } else if (personality === "Technical Expert") {
       prefix = "Looking at technical system trade-offs: ";
-    }
-
-    // A. Resume-Based Interview
-    if (interviewType === "Resume-Based" && resumeData) {
-      const projects = resumeData.parsedData?.projects || [];
-      const skills = resumeData.parsedData?.skills || ["React", "Node.js", "Java", "SQL"];
-      
-      if (qCount === 1 && projects.length > 0) {
-        return {
-          questionText: `${prefix}In your resume, you highlighted "${projects[0].title}". Can you walk me through the high-level architecture, why you selected (${projects[0].technologies?.join(', ') || 'your tech stack'}), and the single most complex technical trade-off you navigated?`,
-          topic: "Resume & Architecture",
-          difficultyLevel: difficultyLevel || 2,
-          isFollowUp: false,
-          expectedConcepts: ["High-level architecture", "Tech stack rationale", "Specific technical problem-solving", "Performance metrics"]
-        };
-      } else if (qCount === 2 && projects.length > 0) {
-        return {
-          questionText: `${prefix}For "${projects[0].title}", what would break first if concurrent requests scaled 50x overnight, and how would you redesign the caching or database layer to handle that throughput?`,
-          topic: "Scalability & Resilience",
-          difficultyLevel: 3,
-          isFollowUp: true,
-          expectedConcepts: ["Bottleneck identification", "Redis caching / Read replicas", "Rate limiting", "Horizontal scaling"]
-        };
-      }
     }
 
     // B. Job-Specific Interview

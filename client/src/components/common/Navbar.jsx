@@ -69,17 +69,17 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           {isAuthenticated ? (
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.slice(0, 6).map((link) => {
+            <nav className="hidden xl:flex items-center gap-1">
+              {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path || location.pathname.startsWith(link.path + '/');
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30'
+                        ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 font-semibold'
                         : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
                     }`}
                   >
@@ -90,11 +90,13 @@ export default function Navbar() {
               })}
             </nav>
           ) : (
-            <nav className="hidden md:flex items-center gap-6 text-sm text-slate-300">
+            <nav className="hidden md:flex items-center gap-5 text-xs lg:text-sm text-slate-300">
               <Link to="/#features" className="hover:text-white transition-colors">Features</Link>
               <Link to="/#how-it-works" className="hover:text-white transition-colors">How It Works</Link>
               <Link to="/questions" className="hover:text-white transition-colors">Question Bank</Link>
-              <Link to="/coding" className="hover:text-white transition-colors">Coding Challenges</Link>
+              <Link to="/coding" className="hover:text-white transition-colors">Coding Studio</Link>
+              <Link to="/job-description" className="hover:text-white transition-colors">Job Matcher</Link>
+              <Link to="/practice" className="hover:text-white transition-colors">Practice</Link>
             </nav>
           )}
 
@@ -199,7 +201,7 @@ export default function Navbar() {
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+              className="xl:hidden p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -209,7 +211,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+        <div className="xl:hidden bg-slate-950 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
           {isAuthenticated ? (
             <>
               <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-800">
@@ -220,7 +222,7 @@ export default function Navbar() {
                       key={link.name}
                       to={link.path}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200"
+                      className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200 hover:bg-slate-800"
                     >
                       <Icon className="w-4 h-4 text-indigo-400" />
                       {link.name}
@@ -234,9 +236,35 @@ export default function Navbar() {
               </div>
             </>
           ) : (
-            <div className="flex flex-col gap-2 pt-2">
-              <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full text-center py-2 rounded-lg bg-slate-900 text-slate-200 text-sm">Log In</Link>
-              <Link to="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full text-center py-2 rounded-lg bg-indigo-600 text-white font-semibold text-sm">Sign Up Free</Link>
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-800">
+                <Link to="/questions" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200">
+                  <Layers className="w-4 h-4 text-indigo-400" /> Question Bank
+                </Link>
+                <Link to="/coding" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200">
+                  <Code className="w-4 h-4 text-emerald-400" /> Coding Studio
+                </Link>
+                <Link to="/job-description" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200">
+                  <Briefcase className="w-4 h-4 text-cyan-400" /> Job Matcher
+                </Link>
+                <Link to="/practice" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-200">
+                  <Zap className="w-4 h-4 text-amber-400" /> Practice Drills
+                </Link>
+              </div>
+              <div className="flex flex-col gap-2 pt-1">
+                <button
+                  onClick={async () => {
+                    setMobileMenuOpen(false);
+                    await demoLogin();
+                    navigate('/dashboard');
+                  }}
+                  className="w-full text-center py-2.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-800 font-semibold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> 1-Click Fast Demo Login
+                </button>
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full text-center py-2 rounded-lg bg-slate-900 text-slate-200 text-xs font-medium">Log In</Link>
+                <Link to="/signup" onClick={() => setMobileMenuOpen(false)} className="w-full text-center py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs">Sign Up Free</Link>
+              </div>
             </div>
           )}
         </div>

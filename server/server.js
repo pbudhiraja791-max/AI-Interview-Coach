@@ -3,11 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import interviewRoutes from './routes/interviewRoutes.js';
-import resumeRoutes from './routes/resumeRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
 import codingRoutes from './routes/codingRoutes.js';
 import progressRoutes from './routes/progressRoutes.js';
 import questionsRoutes from './routes/questionsRoutes.js';
+import resumeRoutes from './routes/resumeRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 import path from 'path';
@@ -44,11 +44,11 @@ app.get('/api/health', (req, res) => {
 // Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/interviews', interviewRoutes);
-app.use('/api/resume', resumeRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/coding', codingRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/questions', questionsRoutes);
+app.use('/api/resume', resumeRoutes);
 
 // Central Error Handler
 app.use(errorHandler);

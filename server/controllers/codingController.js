@@ -141,21 +141,24 @@ Test Results: ${JSON.stringify(testResults)}`;
       };
     }
 
-    // Record submission and award XP
-    const submission = db.saveCodingSubmission({
-      userId: req.user._id,
-      problemId,
-      problemTitle: problem.title,
-      language,
-      code,
-      status: testResults?.every(t => t.passed) ? 'passed' : 'failed',
-      testResults,
-      evaluation
-    });
+    // Record submission and award XP if authenticated
+    let submission = null;
+    if (req.user && req.user._id) {
+      submission = db.saveCodingSubmission({
+        userId: req.user._id,
+        problemId,
+        problemTitle: problem.title,
+        language,
+        code,
+        status: testResults?.every(t => t.passed) ? 'passed' : 'failed',
+        testResults,
+        evaluation
+      });
 
-    const user = await db.findUserById(req.user._id);
-    if (user) {
-      await db.updateUser(user._id, { xp: (user.xp || 0) + 30 });
+      const user = await db.findUserById(req.user._id);
+      if (user) {
+        await db.updateUser(user._id, { xp: (user.xp || 0) + 30 });
+      }
     }
 
     res.json({

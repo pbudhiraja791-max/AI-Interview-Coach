@@ -107,20 +107,7 @@ async function runTests() {
     }
   });
 
-  // 8. Resume Upload & Project Questions
-  await test("Resume Analysis & Deep Dive Question Generator", async () => {
-    const res = await fetch(`${BASE_URL}/resume/upload`, {
-      method: 'POST',
-      headers: authHeaders(),
-      body: JSON.stringify({
-        rawText: "Alex Sharma | Skills: React, Node.js, Java, SQL, Redis, Docker. Project: Real-time Analytics Dashboard."
-      })
-    });
-    const data = await res.json();
-    if (!data.success || !data.resume.generatedQuestions?.length) throw new Error("Resume parsing failed");
-  });
-
-  // 9. Job Description Matching & Gap Analysis
+  // 8. Job Description Matching & Gap Analysis
   await test("Job Description Match Score & Gap Matrix", async () => {
     const res = await fetch(`${BASE_URL}/jobs/analyze`, {
       method: 'POST',

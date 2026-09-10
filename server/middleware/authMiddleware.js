@@ -24,6 +24,25 @@ export async function authenticateToken(req, res, next) {
   }
 }
 
+export async function optionalAuthenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    req.user = null;
+    return next();
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await db.findUserById(decoded.id || decoded.userId);
+    req.user = user || null;
+  } catch (error) {
+    req.user = null;
+  }
+  next();
+}
+
 export function generateToken(user) {
   return jwt.sign(
     { id: user._id, email: user.email, name: user.name },

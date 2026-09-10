@@ -5,7 +5,6 @@ export async function getDashboardData(req, res) {
   try {
     const user = req.user;
     const interviews = await db.listUserInterviews(user._id);
-    const resume = await db.getResumeByUserId(user._id);
     const job = await db.getJobDescriptionByUserId(user._id);
     const plan = await db.getPreparationPlan(user._id);
 
@@ -59,7 +58,6 @@ export async function getDashboardData(req, res) {
         recentInterviews,
         strengths: Array.from(allStrengths).slice(0, 5),
         weaknesses: Array.from(allWeaknesses).slice(0, 5),
-        hasResume: Boolean(resume),
         hasJobDescription: Boolean(job),
         activePlan: plan,
         dailyRecommendation: {

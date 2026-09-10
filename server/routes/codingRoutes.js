@@ -5,11 +5,11 @@ import {
   executeCode,
   evaluateSubmission
 } from '../controllers/codingController.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { optionalAuthenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(optionalAuthenticateToken);
 
 router.get('/problems', getProblems);
 router.get('/problems/:id', getProblemById);

@@ -29,18 +29,36 @@ async function request(endpoint, options = {}) {
     }
   }
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers
-  });
+  try {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers
+    });
 
-  const data = await response.json();
+    const contentType = response.headers.get('content-type') || '';
+    let data;
+    if (contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        data = { message: text || `HTTP ${response.status} ${response.statusText}` };
+      }
+    }
 
-  if (!response.ok) {
-    throw new Error(data.message || 'An error occurred during API request');
+    if (!response.ok) {
+      throw new Error(data.message || `API request failed (${response.status})`);
+    }
+
+    return data;
+  } catch (err) {
+    if (err.name === 'TypeError' && err.message.includes('fetch')) {
+      throw new Error("Unable to connect to backend server. Make sure the backend is running on port 5050.");
+    }
+    throw err;
   }
-
-  return data;
 }
 
 export const api = {

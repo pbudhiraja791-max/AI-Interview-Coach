@@ -13,7 +13,6 @@ export async function generateAdaptiveQuestion(context, customApiKey = null) {
     previousQuestions = [],
     previousAnswers = [],
     previousScores = [],
-    resumeData = null,
     jobData = null
   } = context;
 
@@ -41,7 +40,6 @@ Strictly return JSON matching this schema:
 
   const prompt = `Context:
 - Candidate Skills: ${Array.isArray(skills) ? skills.join(', ') : skills || 'General'}
-- Resume Summary: ${resumeData ? JSON.stringify(resumeData.parsedData || {}) : 'None'}
 - Job Description: ${jobData ? JSON.stringify(jobData.rawText || '') : 'None'}
 - Previous Questions Asked: ${JSON.stringify(previousQuestions.map(q => q.questionText || q))}
 - Previous Candidate Answers & Scores: ${JSON.stringify(previousAnswers.map((a, i) => ({ answer: a, score: previousScores[i] })))}
@@ -66,7 +64,6 @@ Generate the single next adaptive question.`;
     personality,
     previousQuestions,
     previousAnswers,
-    resumeData,
     jobData
   });
 }
