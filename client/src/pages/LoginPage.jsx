@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import { Bot, Sparkles, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
+import { Bot, Sparkles, Lock, Mail, ArrowRight, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const { login, demoLogin } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleFillDemo = () => {
+    setEmail('alex.sharma@example.com');
+    setPassword('demo12345');
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
+    if (!cleanEmail || !cleanPassword) {
+      setError('Please enter both email and password.');
+      return;
+    }
+
     setLoading(true);
     try {
-      await login({ email, password });
+      await login({ email: cleanEmail, password: cleanPassword });
       navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Failed to sign in. Check email and password.');
@@ -52,24 +67,36 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Demo Candidate Fast-Track Button */}
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/80 to-purple-950/80 border border-indigo-500/30 shadow-lg text-center space-y-2">
+        {/* Demo Candidate Fast-Track Card */}
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/80 to-purple-950/80 border border-indigo-500/30 shadow-lg text-center space-y-2.5">
           <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-cyan-300">
             <Sparkles className="w-3.5 h-3.5" />
             Quick Demo Candidate Access
           </div>
           <p className="text-[11px] text-slate-300">
-            Instant 1-click access pre-configured with <b>Alex Sharma (Full Stack Engineer)</b> profile & mock analytics.
+            Pre-configured with <b>Alex Sharma (Full Stack Engineer)</b> profile, past mock sessions & analytics.
           </p>
-          <button
-            type="button"
-            onClick={handleDemoLogin}
-            disabled={loading}
-            className="w-full py-2 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-glow-primary transition-all flex items-center justify-center gap-1.5"
-          >
-            Sign in as Demo Candidate (Alex Sharma)
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex flex-col sm:flex-row gap-2 pt-1">
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              disabled={loading}
+              className="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-glow-primary transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              1-Click Demo Login
+            </button>
+            <button
+              type="button"
+              onClick={handleFillDemo}
+              className="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition-all"
+            >
+              Fill Credentials
+            </button>
+          </div>
+          <div className="text-[10px] text-slate-400 font-mono pt-1">
+            Demo: alex.sharma@example.com | password: demo12345
+          </div>
         </div>
 
         {/* Login Form */}
@@ -107,20 +134,28 @@ export default function LoginPage() {
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full pl-9 pr-10 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500 transition-colors"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-slate-500 hover:text-slate-300 transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? 'Signing in...' : 'Sign In to Dashboard'}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -130,7 +165,7 @@ export default function LoginPage() {
           <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-800">
             Don't have an account yet?{' '}
             <Link to="/signup" className="text-indigo-400 font-semibold hover:underline">
-              Create an account
+              Create an account (Sign Up)
             </Link>
           </div>
         </div>
@@ -138,3 +173,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

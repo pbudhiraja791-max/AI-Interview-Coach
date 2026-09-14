@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import { Bot, User, Mail, Lock, Briefcase, Award, ArrowRight, AlertCircle } from 'lucide-react';
+import { Bot, User, Mail, Lock, Briefcase, Award, ArrowRight, AlertCircle, Sparkles, Eye, EyeOff } from 'lucide-react';
 
 export default function SignupPage() {
   const { register } = useAuth();
@@ -11,21 +11,54 @@ export default function SignupPage() {
     name: '',
     email: '',
     password: '',
-    targetRole: 'Software Engineer',
+    targetRole: 'Full Stack Developer',
     experienceLevel: '1-3 years'
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleFillSample = () => {
+    const randomSuffix = Math.floor(100 + Math.random() * 900);
+    setFormData({
+      name: 'Siddhika Sharma',
+      email: `siddhika.sharma${randomSuffix}@example.com`,
+      password: 'password123',
+      targetRole: 'Full Stack Developer',
+      experienceLevel: '1-3 years'
+    });
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim().toLowerCase();
+    const cleanPassword = formData.password.trim();
+
+    if (!cleanName || !cleanEmail || !cleanPassword) {
+      setError('Please fill in all required fields (Name, Email, and Password).');
+      return;
+    }
+
+    if (cleanPassword.length < 6) {
+      setError('Password should be at least 6 characters long.');
+      return;
+    }
+
     setLoading(true);
     try {
-      await register(formData);
+      await register({
+        ...formData,
+        name: cleanName,
+        email: cleanEmail,
+        password: cleanPassword
+      });
       navigate('/onboarding');
     } catch (err) {
-      setError(err.message || 'Registration failed.');
+      setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -42,6 +75,21 @@ export default function SignupPage() {
           <p className="text-xs sm:text-sm text-slate-400">
             Start your AI-powered personalized interview preparation
           </p>
+        </div>
+
+        {/* Quick Fill Helper */}
+        <div className="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 text-center flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-xs text-slate-300">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Fast test registration</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleFillSample}
+            className="py-1 px-2.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 text-xs font-semibold transition-all"
+          >
+            Fill Sample Details
+          </button>
         </div>
 
         <div className="p-6 sm:p-8 rounded-2xl glass-card border border-slate-800 space-y-5">
@@ -75,7 +123,7 @@ export default function SignupPage() {
                 <input
                   type="email"
                   required
-                  placeholder="name@example.com"
+                  placeholder="siddhika@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
@@ -88,13 +136,21 @@ export default function SignupPage() {
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
-                  placeholder="Create strong password"
+                  placeholder="Create strong password (min 6 chars)"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-9 pr-10 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-slate-500 hover:text-slate-300 transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
@@ -136,7 +192,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? 'Creating Profile...' : 'Complete Registration'}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -146,7 +202,7 @@ export default function SignupPage() {
           <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-800">
             Already have an account?{' '}
             <Link to="/login" className="text-indigo-400 font-semibold hover:underline">
-              Sign In
+              Sign In (Log In)
             </Link>
           </div>
         </div>
@@ -154,3 +210,4 @@ export default function SignupPage() {
     </div>
   );
 }
+

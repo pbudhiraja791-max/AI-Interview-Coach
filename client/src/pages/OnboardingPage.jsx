@@ -100,9 +100,18 @@ export default function OnboardingPage() {
               }
             </h1>
           </div>
-          <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-            {Math.round((step / 6) * 100)}% Complete
-          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard')}
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium px-3 py-1.5 rounded-lg bg-indigo-950/40 border border-indigo-800/40 transition-all"
+            >
+              Skip to Dashboard →
+            </button>
+            <span className="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+              {Math.round((step / 6) * 100)}% Complete
+            </span>
+          </div>
         </div>
 
         {/* Progress Bar */}

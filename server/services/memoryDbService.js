@@ -48,7 +48,6 @@ class MemoryDbService {
       createdAt: new Date(Date.now() - 14 * 86400000)
     };
     this.users.set(DEMO_USER_ID, demoUser);
-    this.users.set(demoUser.email, demoUser);
 
     // 2. Demo Past Interviews for Alex
     const pastInterview1 = {
@@ -226,10 +225,18 @@ class MemoryDbService {
 
   // --- USER METHODS ---
   async findUserByEmail(email) {
-    return this.users.get(email.toLowerCase()) || null;
+    if (!email) return null;
+    const normalized = email.trim().toLowerCase();
+    for (const u of this.users.values()) {
+      if (u.email && u.email.toLowerCase() === normalized) {
+        return u;
+      }
+    }
+    return null;
   }
 
   async findUserById(id) {
+    if (!id) return null;
     return this.users.get(id) || null;
   }
 
@@ -237,8 +244,8 @@ class MemoryDbService {
     const id = `usr_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
     const user = {
       _id: id,
-      name: userData.name,
-      email: userData.email.toLowerCase(),
+      name: userData.name.trim(),
+      email: userData.email.trim().toLowerCase(),
       password: userData.password,
       targetRole: userData.targetRole || "Software Engineer",
       experienceLevel: userData.experienceLevel || "1-3 years",
@@ -259,7 +266,6 @@ class MemoryDbService {
       createdAt: new Date()
     };
     this.users.set(id, user);
-    this.users.set(user.email, user);
     return user;
   }
 
@@ -268,7 +274,6 @@ class MemoryDbService {
     if (!user) return null;
     const updated = { ...user, ...updateData, updatedAt: new Date() };
     this.users.set(id, updated);
-    this.users.set(user.email, updated);
     return updated;
   }
 

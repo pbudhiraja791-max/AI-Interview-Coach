@@ -5,20 +5,56 @@ import { Bot, Mail, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [resetToken, setResetToken] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleRequestReset = async (e) => {
     e.preventDefault();
     setError('');
     setMessage('');
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      setError('Please enter your email address.');
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await api.auth.forgotPassword(email);
+      const res = await api.auth.forgotPassword(cleanEmail);
       setMessage(res.message || 'Password reset link sent.');
+      if (res.resetToken) {
+        setResetToken(res.resetToken);
+      }
     } catch (err) {
-      setError(err.message || 'Failed to process password reset.');
+      setError(err.message || 'Failed to process password reset. Please check the email.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = newPassword.trim();
+
+    if (!cleanPassword || cleanPassword.length < 6) {
+      setError('New password must be at least 6 characters.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await api.auth.resetPassword({ email: cleanEmail, newPassword: cleanPassword });
+      setResetSuccess(true);
+      setMessage(res.message || 'Password successfully updated! You can now login.');
+    } catch (err) {
+      setError(err.message || 'Failed to reset password.');
     } finally {
       setLoading(false);
     }
@@ -52,37 +88,72 @@ export default function ForgotPasswordPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-slate-300">Email Address</label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+          {!resetSuccess && !resetToken && (
+            <form onSubmit={handleRequestReset} className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-slate-300">Email Address</label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+                  <input
+                    type="email"
+                    required
+                    placeholder="alex.sharma@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? 'Sending link...' : 'Send Reset Instructions'}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </form>
+          )}
+
+          {resetToken && !resetSuccess && (
+            <form onSubmit={handleResetPassword} className="space-y-4 pt-2 border-t border-slate-800">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-slate-300">Enter New Password</label>
                 <input
-                  type="email"
+                  type="password"
                   required
-                  placeholder="alex.sharma@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                  placeholder="At least 6 characters"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
-            </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2"
-            >
-              {loading ? 'Sending link...' : 'Send Reset Instructions'}
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-glow-primary transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? 'Updating Password...' : 'Save New Password'}
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </form>
+          )}
 
           <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-800">
-            Remembered password?{' '}
-            <Link to="/login" className="text-indigo-400 font-semibold hover:underline">
-              Back to Login
-            </Link>
+            {resetSuccess ? (
+              <Link to="/login" className="text-indigo-400 font-bold hover:underline">
+                Proceed to Login →
+              </Link>
+            ) : (
+              <>
+                Remembered password?{' '}
+                <Link to="/login" className="text-indigo-400 font-semibold hover:underline">
+                  Back to Login
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

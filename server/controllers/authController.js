@@ -4,7 +4,10 @@ import { generateToken } from '../middleware/authMiddleware.js';
 
 export async function register(req, res) {
   try {
-    const { name, email, password, targetRole, experienceLevel, skills, interviewGoals } = req.body;
+    const name = (req.body.name || '').trim();
+    const email = (req.body.email || '').trim().toLowerCase();
+    const password = (req.body.password || '').trim();
+    const { targetRole, experienceLevel, skills, interviewGoals } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: 'Name, email, and password are required' });
@@ -42,7 +45,8 @@ export async function register(req, res) {
 
 export async function login(req, res) {
   try {
-    const { email, password } = req.body;
+    const email = (req.body.email || '').trim().toLowerCase();
+    const password = (req.body.password || '').trim();
 
     if (!email || !password) {
       return res.status(400).json({ success: false, message: 'Email and password are required' });

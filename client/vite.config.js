@@ -3,10 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-
-  // GitHub Pages ke liye
-  base: '/AI-Interview-Coach/',
-
+  base: process.env.VITE_BASE_PATH || '/',
   server: {
     port: 5173,
     proxy: {
@@ -18,3 +15,4 @@ export default defineConfig({
     }
   }
 });
+
