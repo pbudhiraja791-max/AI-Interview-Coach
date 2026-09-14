@@ -18,14 +18,16 @@ console.log('💻 Frontend: http://localhost:5173\n');
 const serverProcess = spawn(nodeCmd, ['server/server.js'], {
   cwd: rootDir,
   stdio: 'inherit',
-  env: { ...process.env, PORT: '5050' }
+  env: { ...process.env, PORT: '5050' },
+  shell: true // <-- ADD THIS HERE
 });
 
 // 2. Spawn Frontend Vite Dev Server
 const clientProcess = spawn(npmCmd, ['--prefix', 'client', 'run', 'dev'], {
   cwd: rootDir,
   stdio: 'inherit',
-  env: process.env
+  env: process.env,
+  shell: true // <-- ADD THIS HERE
 });
 
 function cleanup() {
@@ -33,7 +35,7 @@ function cleanup() {
   try {
     if (serverProcess && !serverProcess.killed) {
       if (isWindows) {
-        spawn('taskkill', ['/pid', serverProcess.pid.toString(), '/f', '/t']);
+        spawn('taskkill', ['/pid', serverProcess.pid.toString(), '/f', '/t'], { shell: true }); // <-- AND HERE
       } else {
         serverProcess.kill('SIGINT');
       }
@@ -43,7 +45,7 @@ function cleanup() {
   try {
     if (clientProcess && !clientProcess.killed) {
       if (isWindows) {
-        spawn('taskkill', ['/pid', clientProcess.pid.toString(), '/f', '/t']);
+        spawn('taskkill', ['/pid', clientProcess.pid.toString(), '/f', '/t'], { shell: true }); // <-- AND HERE
       } else {
         clientProcess.kill('SIGINT');
       }
