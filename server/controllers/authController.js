@@ -78,7 +78,7 @@ export async function login(req, res) {
 
 export async function demoLogin(req, res) {
   try {
-    const demoUser = await db.findUserByEmail("alex.sharma@example.com");
+    const demoUser = await db.findUserByEmail("parth@example.com");
     if (!demoUser) {
       return res.status(404).json({ success: false, message: 'Demo candidate profile not found' });
     }
@@ -88,7 +88,7 @@ export async function demoLogin(req, res) {
 
     res.json({
       success: true,
-      message: 'Logged in as Demo Candidate (Alex Sharma)',
+      message: 'Logged in as Demo Candidate (Parth)',
       token,
       user: userSafe
     });
@@ -157,3 +157,4 @@ export async function resetPassword(req, res) {
     res.status(500).json({ success: false, message: error.message });
   }
 }
+

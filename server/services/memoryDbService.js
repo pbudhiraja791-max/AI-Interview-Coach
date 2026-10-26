@@ -21,8 +21,8 @@ class MemoryDbService {
     // 1. Create Alex Sharma demo profile
     const demoUser = {
       _id: DEMO_USER_ID,
-      name: "Alex Sharma",
-      email: "alex.sharma@example.com",
+      name: "Parth",
+      email: "parth@example.com",
       password: DEFAULT_PASSWORD_HASH,
       targetRole: "Full Stack Developer",
       experienceLevel: "1-3 years",
@@ -389,3 +389,4 @@ class MemoryDbService {
 }
 
 export const db = new MemoryDbService();
+

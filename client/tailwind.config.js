@@ -9,16 +9,27 @@ export default {
     extend: {
       colors: {
         dark: {
-          bg: '#0A0F1D',
-          surface: '#111827',
-          card: '#161F36',
-          border: '#1F293D',
-          hover: '#24304F'
+          bg: '#030712',
+          surface: '#070C1E',
+          card: '#0B1129',
+          border: '#152042',
+          hover: '#19264E'
+        },
+        lumine: {
+          base: '#030712',
+          surface: '#070C1E',
+          card: '#0A1028',
+          border: 'rgba(255, 255, 255, 0.08)',
+          glow: '#38BDF8',
+          accent: '#60A5FA',
+          cyan: '#38BDF8',
+          blue: '#2563EB',
+          indigo: '#6366F1'
         },
         ai: {
-          primary: '#6366F1',
-          secondary: '#8B5CF6',
-          cyan: '#06B6D4',
+          primary: '#60A5FA',
+          secondary: '#818CF8',
+          cyan: '#38BDF8',
           emerald: '#10B981',
           rose: '#F43F5E',
           amber: '#F59E0B'
@@ -29,9 +40,11 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'monospace']
       },
       boxShadow: {
-        'glow-primary': '0 0 25px -5px rgba(99, 102, 241, 0.35)',
-        'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.35)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+        'glow-primary': '0 0 35px -5px rgba(96, 165, 250, 0.4)',
+        'glow-cyan': '0 0 35px -5px rgba(56, 189, 248, 0.4)',
+        'glow-white': '0 0 25px 0 rgba(255, 255, 255, 0.3)',
+        'celestial': '0 -15px 40px rgba(56, 189, 248, 0.35)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.6)'
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

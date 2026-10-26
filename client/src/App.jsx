@@ -51,7 +51,7 @@ function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0A0F1D]">
+      <div className="min-h-screen flex items-center justify-center bg-[#030712]">
         <div className="w-8 h-8 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
       </div>
     );
@@ -69,7 +69,7 @@ export default function App() {
       <ThemeProvider>
         <AuthProvider>
           <InterviewProvider>
-            <div className="min-h-screen flex flex-col bg-[#0A0F1D] text-slate-100 selection:bg-indigo-500 selection:text-white">
+            <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 selection:bg-sky-500 selection:text-white">
               <Navbar />
               <main className="flex-grow">
                 <Routes>

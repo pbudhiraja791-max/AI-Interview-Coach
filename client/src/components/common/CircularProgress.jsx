@@ -15,28 +15,28 @@ export default function CircularProgress({
 
   const colorMap = {
     indigo: {
-      stroke: "#6366F1",
-      glow: "rgba(99, 102, 241, 0.4)",
-      bg: "rgba(99, 102, 241, 0.15)"
+      stroke: "#38BDF8",
+      glow: "rgba(56, 189, 248, 0.5)",
+      bg: "rgba(56, 189, 248, 0.15)"
     },
     emerald: {
       stroke: "#10B981",
-      glow: "rgba(16, 185, 129, 0.4)",
+      glow: "rgba(16, 185, 129, 0.45)",
       bg: "rgba(16, 185, 129, 0.15)"
     },
     cyan: {
-      stroke: "#06B6D4",
-      glow: "rgba(6, 182, 212, 0.4)",
-      bg: "rgba(6, 182, 212, 0.15)"
+      stroke: "#38BDF8",
+      glow: "rgba(56, 189, 248, 0.5)",
+      bg: "rgba(56, 189, 248, 0.15)"
     },
     amber: {
       stroke: "#F59E0B",
-      glow: "rgba(245, 158, 11, 0.4)",
+      glow: "rgba(245, 158, 11, 0.45)",
       bg: "rgba(245, 158, 11, 0.15)"
     },
     rose: {
       stroke: "#F43F5E",
-      glow: "rgba(244, 63, 94, 0.4)",
+      glow: "rgba(244, 63, 94, 0.45)",
       bg: "rgba(244, 63, 94, 0.15)"
     }
   };
@@ -51,7 +51,7 @@ export default function CircularProgress({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="#1E293B"
+          stroke="rgba(255, 255, 255, 0.08)"
           strokeWidth={strokeWidth}
           fill="transparent"
         />
@@ -68,24 +68,24 @@ export default function CircularProgress({
           fill="transparent"
           style={{
             transition: "stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)",
-            filter: `drop-shadow(0 0 8px ${selected.glow})`
+            filter: `drop-shadow(0 0 10px ${selected.glow})`
           }}
         />
       </svg>
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
         {showPercentage && (
-          <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-mono">
+          <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-mono">
             {value}%
           </span>
         )}
         {label && (
-          <span className="text-[11px] font-medium text-slate-400 -mt-0.5">
+          <span className="text-[11px] font-medium text-slate-300 -mt-0.5">
             {label}
           </span>
         )}
         {sublabel && (
-          <span className="text-[9px] text-slate-500 font-mono">
+          <span className="text-[9px] text-sky-400/80 font-mono">
             {sublabel}
           </span>
         )}

@@ -67,14 +67,17 @@ export default function InterviewSetupPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8 relative">
+      {/* Background celestial ambient flare */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-sky-500/5 blur-[120px] pointer-events-none" />
+
       {/* Header */}
-      <div className="space-y-1.5 border-b border-slate-800 pb-5">
+      <div className="space-y-1.5 border-b border-white/[0.08] pb-5 relative z-10">
         <div className="flex items-center gap-2">
           <Badge variant="primary">Simulation Configurator</Badge>
           <span className="text-xs text-slate-400">Step 1 of 2</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
           Configure Your Mock Interview
         </h1>
         <p className="text-xs sm:text-sm text-slate-400">
@@ -82,11 +85,11 @@ export default function InterviewSetupPage() {
         </p>
       </div>
 
-      <form onSubmit={handleStart} className="space-y-8">
+      <form onSubmit={handleStart} className="space-y-8 relative z-10">
         {/* 1. Target Role */}
-        <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-3">
-          <label className="text-sm font-bold text-white flex items-center gap-2">
-            <Bot className="w-4 h-4 text-indigo-400" />
+        <div className="p-6 sm:p-7 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-3 backdrop-blur-2xl shadow-xl">
+          <label className="text-sm font-semibold text-white flex items-center gap-2">
+            <Bot className="w-4 h-4 text-sky-400" />
             Target Engineering Role
           </label>
           <input
@@ -95,14 +98,14 @@ export default function InterviewSetupPage() {
             value={role}
             onChange={(e) => setRole(e.target.value)}
             placeholder="e.g. Full Stack Developer, Backend Engineer, React Specialist"
-            className="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs sm:text-sm focus:outline-none focus:border-indigo-500 font-medium"
+            className="w-full p-3.5 rounded-2xl bg-[#030712] border border-white/10 text-slate-100 text-xs sm:text-sm focus:outline-none focus:border-sky-400/60 font-medium"
           />
         </div>
 
         {/* 2. Interview Type */}
-        <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
-          <label className="text-sm font-bold text-white flex items-center gap-2">
-            <Zap className="w-4 h-4 text-indigo-400" />
+        <div className="p-6 sm:p-7 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-4 backdrop-blur-2xl shadow-xl">
+          <label className="text-sm font-semibold text-white flex items-center gap-2">
+            <Zap className="w-4 h-4 text-sky-400" />
             Select Interview Type
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -111,16 +114,16 @@ export default function InterviewSetupPage() {
                 key={t.id}
                 type="button"
                 onClick={() => setInterviewType(t.id)}
-                className={`p-3.5 rounded-xl text-left border transition-all flex flex-col justify-between ${
+                className={`p-4 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                   interviewType === t.id
-                    ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-glow-primary'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                    ? 'bg-sky-500/15 border-sky-400/40 text-white shadow-[0_0_20px_rgba(56,189,248,0.25)]'
+                    : 'bg-[#030712] border-white/10 text-slate-300 hover:border-white/20'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-white">{t.title}</span>
-                    {interviewType === t.id && <Check className="w-4 h-4 text-indigo-400 shrink-0" />}
+                    <span className="font-semibold text-xs text-white">{t.title}</span>
+                    {interviewType === t.id && <Check className="w-4 h-4 text-sky-400 shrink-0" />}
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{t.desc}</p>
                 </div>
@@ -130,9 +133,9 @@ export default function InterviewSetupPage() {
         </div>
 
         {/* 3. Difficulty Mode */}
-        <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
-          <label className="text-sm font-bold text-white flex items-center gap-2">
-            <Sliders className="w-4 h-4 text-indigo-400" />
+        <div className="p-6 sm:p-7 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-4 backdrop-blur-2xl shadow-xl">
+          <label className="text-sm font-semibold text-white flex items-center gap-2">
+            <Sliders className="w-4 h-4 text-sky-400" />
             Difficulty Mode
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -141,26 +144,26 @@ export default function InterviewSetupPage() {
                 key={d.id}
                 type="button"
                 onClick={() => setDifficulty(d.id)}
-                className={`p-3.5 rounded-xl text-left border transition-all flex items-center justify-between ${
+                className={`p-4 rounded-2xl text-left border transition-all flex items-center justify-between ${
                   difficulty === d.id
-                    ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-glow-primary'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                    ? 'bg-sky-500/15 border-sky-400/40 text-white shadow-[0_0_20px_rgba(56,189,248,0.25)]'
+                    : 'bg-[#030712] border-white/10 text-slate-300 hover:border-white/20'
                 }`}
               >
                 <div>
-                  <span className="font-bold text-xs text-white">{d.title}</span>
+                  <span className="font-semibold text-xs text-white">{d.title}</span>
                   <p className="text-[11px] text-slate-400 mt-0.5">{d.desc}</p>
                 </div>
-                {difficulty === d.id && <Check className="w-4 h-4 text-indigo-400 shrink-0 ml-2" />}
+                {difficulty === d.id && <Check className="w-4 h-4 text-sky-400 shrink-0 ml-2" />}
               </button>
             ))}
           </div>
         </div>
 
         {/* 4. Interviewer Personality */}
-        <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
-          <label className="text-sm font-bold text-white flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
+        <div className="p-6 sm:p-7 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-4 backdrop-blur-2xl shadow-xl">
+          <label className="text-sm font-semibold text-white flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-sky-400" />
             Interviewer Personality
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -169,16 +172,16 @@ export default function InterviewSetupPage() {
                 key={p.id}
                 type="button"
                 onClick={() => setPersonality(p.id)}
-                className={`p-3.5 rounded-xl text-left border transition-all flex flex-col justify-between ${
+                className={`p-4 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                   personality === p.id
-                    ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-glow-primary'
-                    : 'bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700'
+                    ? 'bg-sky-500/15 border-sky-400/40 text-white shadow-[0_0_20px_rgba(56,189,248,0.25)]'
+                    : 'bg-[#030712] border-white/10 text-slate-300 hover:border-white/20'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-white">{p.title}</span>
-                    {personality === p.id && <Check className="w-4 h-4 text-indigo-400 shrink-0" />}
+                    <span className="font-semibold text-xs text-white">{p.title}</span>
+                    {personality === p.id && <Check className="w-4 h-4 text-sky-400 shrink-0" />}
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1">{p.desc}</p>
                 </div>
@@ -190,14 +193,14 @@ export default function InterviewSetupPage() {
         {/* 5. Session Parameters (Duration, Questions, Rigor) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Duration */}
-          <div className="p-5 rounded-2xl glass-card border border-slate-800 space-y-2">
+          <div className="p-5 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-2 backdrop-blur-2xl shadow-xl">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-indigo-400" /> Duration
+              <Clock className="w-3.5 h-3.5 text-sky-400" /> Duration
             </label>
             <select
               value={durationMinutes}
               onChange={(e) => setDurationMinutes(Number(e.target.value))}
-              className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500 font-medium"
+              className="w-full p-2.5 rounded-xl bg-[#030712] border border-white/10 text-slate-100 text-xs focus:outline-none focus:border-sky-400/60 font-medium"
             >
               <option value={10}>10 Minutes (Quick)</option>
               <option value={20}>20 Minutes (Standard)</option>
@@ -207,14 +210,14 @@ export default function InterviewSetupPage() {
           </div>
 
           {/* Total Questions */}
-          <div className="p-5 rounded-2xl glass-card border border-slate-800 space-y-2">
+          <div className="p-5 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-2 backdrop-blur-2xl shadow-xl">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-              <HelpCircle className="w-3.5 h-3.5 text-indigo-400" /> Question Count
+              <HelpCircle className="w-3.5 h-3.5 text-sky-400" /> Question Count
             </label>
             <select
               value={totalQuestions}
               onChange={(e) => setTotalQuestions(Number(e.target.value))}
-              className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-xs focus:outline-none focus:border-indigo-500 font-medium"
+              className="w-full p-2.5 rounded-xl bg-[#030712] border border-white/10 text-slate-100 text-xs focus:outline-none focus:border-sky-400/60 font-medium"
             >
               <option value={5}>5 Questions</option>
               <option value={10}>10 Questions</option>
@@ -224,9 +227,9 @@ export default function InterviewSetupPage() {
           </div>
 
           {/* Rigor */}
-          <div className="p-5 rounded-2xl glass-card border border-slate-800 space-y-2">
+          <div className="p-5 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] space-y-2 backdrop-blur-2xl shadow-xl">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" /> Evaluation Rigor
+              <ShieldCheck className="w-3.5 h-3.5 text-sky-400" /> Evaluation Rigor
             </label>
             <div className="grid grid-cols-2 gap-1.5">
               <button
@@ -234,8 +237,8 @@ export default function InterviewSetupPage() {
                 onClick={() => setRigor('Standard')}
                 className={`py-2 rounded-xl text-xs font-semibold border transition-all ${
                   rigor === 'Standard'
-                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-glow-primary'
-                    : 'bg-slate-950 border-slate-800 text-slate-400'
+                    ? 'bg-sky-500/20 text-sky-300 border-sky-400/40 shadow-[0_0_15px_rgba(56,189,248,0.25)]'
+                    : 'bg-[#030712] border-white/10 text-slate-400'
                 }`}
               >
                 Standard
@@ -245,8 +248,8 @@ export default function InterviewSetupPage() {
                 onClick={() => setRigor('Bar Raiser')}
                 className={`py-2 rounded-xl text-xs font-semibold border transition-all ${
                   rigor === 'Bar Raiser'
-                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-glow-primary'
-                    : 'bg-slate-950 border-slate-800 text-slate-400'
+                    ? 'bg-sky-500/20 text-sky-300 border-sky-400/40 shadow-[0_0_15px_rgba(56,189,248,0.25)]'
+                    : 'bg-[#030712] border-white/10 text-slate-400'
                 }`}
               >
                 Bar Raiser
@@ -260,7 +263,7 @@ export default function InterviewSetupPage() {
           <button
             type="submit"
             disabled={isAiThinking}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-sm sm:text-base shadow-glow-primary transition-all flex items-center justify-center gap-2"
+            className="w-full py-4 rounded-full lumine-pill-primary text-sm sm:text-base font-bold shadow-[0_0_35px_rgba(255,255,255,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isAiThinking ? 'Calibrating Adaptive AI...' : 'Launch Live Mock Interview Session'}
             <ArrowRight className="w-5 h-5" />

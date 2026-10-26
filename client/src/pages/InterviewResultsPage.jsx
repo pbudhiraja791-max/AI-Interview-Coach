@@ -64,7 +64,7 @@ export default function InterviewResultsPage() {
   if (loading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-3">
-        <div className="w-10 h-10 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
+        <div className="w-10 h-10 rounded-full border-4 border-sky-400 border-t-transparent animate-spin" />
         <p className="text-sm text-slate-400 font-medium">Generating comprehensive Bar Raiser evaluation report...</p>
       </div>
     );
@@ -101,26 +101,29 @@ export default function InterviewResultsPage() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative">
+      {/* Background celestial ambient flare */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-500/5 blur-[120px] pointer-events-none" />
+
       {/* 1. CELEBRATORY HEADER */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/60 to-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden text-center space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+      <div className="p-6 sm:p-9 rounded-3xl bg-gradient-to-r from-[#060a1d] via-[#081233] to-[#040714] border border-white/[0.08] border-t-sky-400/30 shadow-2xl relative overflow-hidden text-center space-y-3 backdrop-blur-2xl">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/25 text-emerald-300 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
           Simulation Successfully Completed
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
           Interview Complete 🎉
         </h1>
         <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
-          Here is your comprehensive hiring evaluation, Interview Mirror perception, and recommended study plan for <b>{interview?.role}</b>.
+          Here is your comprehensive hiring evaluation, Interview Mirror perception, and recommended study plan for <b className="text-white">{interview?.role}</b>.
         </p>
       </div>
 
       {/* 2. OVERALL SCORE & RADAR VISUALIZATION */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
         {/* Big Overall Score Circle */}
-        <div className="md:col-span-5 p-6 sm:p-8 rounded-2xl glass-card border border-slate-800 flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
+        <div className="md:col-span-5 p-6 sm:p-8 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] backdrop-blur-2xl flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
+          <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
             Overall Hiring Score
           </span>
 
@@ -130,7 +133,7 @@ export default function InterviewResultsPage() {
             strokeWidth={14}
             label="Total Score"
             sublabel="Bar Raiser Scale"
-            color={(evalData.overallScore || 82) >= 80 ? 'emerald' : 'indigo'}
+            color={(evalData.overallScore || 82) >= 80 ? 'emerald' : 'cyan'}
           />
 
           <Badge variant={(evalData.overallScore || 82) >= 80 ? 'success' : 'warning'} size="md">
@@ -139,21 +142,21 @@ export default function InterviewResultsPage() {
         </div>
 
         {/* Radar Capability Chart */}
-        <div className="md:col-span-7 p-6 sm:p-8 rounded-2xl glass-card border border-slate-800 space-y-2 shadow-xl">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
+        <div className="md:col-span-7 p-6 sm:p-8 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] backdrop-blur-2xl space-y-2 shadow-xl">
+          <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Capability Radar Polygon
             </span>
-            <span className="text-[11px] text-indigo-400 font-mono">100-Point Normalized</span>
+            <span className="text-[11px] text-sky-400 font-mono">100-Point Normalized</span>
           </div>
 
           <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
-                <PolarGrid stroke="#1E293D" />
+                <PolarGrid stroke="#152042" />
                 <PolarAngleAxis dataKey="subject" stroke="#94A3B8" tick={{ fill: '#94A3B8', fontSize: 11 }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#334155" />
-                <Radar name="Candidate Score" dataKey="score" stroke="#6366F1" fill="#6366F1" fillOpacity={0.35} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#253970" />
+                <Radar name="Candidate Score" dataKey="score" stroke="#38BDF8" fill="#38BDF8" fillOpacity={0.3} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -161,45 +164,45 @@ export default function InterviewResultsPage() {
       </div>
 
       {/* 3. AI INTERVIEW MIRROR PERCEPTION */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-tr from-purple-950/40 via-slate-900 to-indigo-950/40 border border-purple-500/30 space-y-4 shadow-xl">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-tr from-[#060a1d] via-[#091230] to-[#040714] border border-sky-400/25 space-y-4 shadow-xl backdrop-blur-2xl relative z-10">
+        <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
           <div className="flex items-center gap-2">
-            <Brain className="w-5 h-5 text-purple-400" />
-            <h3 className="text-base font-bold text-white">AI Interview Mirror</h3>
+            <Brain className="w-5 h-5 text-sky-400" />
+            <h3 className="text-base font-semibold text-white">AI Interview Mirror</h3>
           </div>
           <Badge variant="purple">Interviewer Perception Profile</Badge>
         </div>
 
         <p className="text-xs text-slate-300 leading-relaxed">
-          The <b>Interview Mirror</b> shows how hiring managers and bar raisers perceive your technical depth, structured thinking, and communication poise.
+          The <b className="text-white">Interview Mirror</b> shows how hiring managers and bar raisers perceive your technical depth, structured thinking, and communication poise.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono text-indigo-400 font-bold">Technical Capability</span>
+          <div className="p-4 rounded-2xl bg-[#030712] border border-white/[0.06] space-y-1">
+            <span className="text-[10px] uppercase font-mono text-sky-400 font-semibold">Technical Capability</span>
             <p className="text-xs text-slate-200">{evalData.interviewMirror?.technicalImpression}</p>
           </div>
-          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono text-cyan-400 font-bold">Communication & Delivery</span>
+          <div className="p-4 rounded-2xl bg-[#030712] border border-white/[0.06] space-y-1">
+            <span className="text-[10px] uppercase font-mono text-cyan-400 font-semibold">Communication & Delivery</span>
             <p className="text-xs text-slate-200">{evalData.interviewMirror?.communicationImpression}</p>
           </div>
-          <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono text-emerald-400 font-bold">Problem Solving</span>
+          <div className="p-4 rounded-2xl bg-[#030712] border border-white/[0.06] space-y-1">
+            <span className="text-[10px] uppercase font-mono text-emerald-400 font-semibold">Problem Solving</span>
             <p className="text-xs text-slate-200">{evalData.interviewMirror?.problemSolvingImpression}</p>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-800/40 text-xs text-indigo-200 flex items-center gap-2">
-          <Award className="w-4 h-4 text-indigo-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-sky-950/20 border border-sky-400/20 text-xs text-sky-200 flex items-center gap-2">
+          <Award className="w-4 h-4 text-sky-400 shrink-0" />
           <span><b>Overall Impression:</b> {evalData.interviewMirror?.overallImpression}</span>
         </div>
       </div>
 
       {/* 4. STRENGTHS & WEAKNESSES */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         {/* Strengths */}
-        <div className="p-6 rounded-2xl glass-card border border-emerald-800/30 space-y-3 shadow-xl">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+        <div className="p-6 rounded-3xl bg-[#060a1d]/85 border border-emerald-500/20 backdrop-blur-2xl space-y-3 shadow-xl">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             Top Key Strengths
           </h3>
@@ -214,8 +217,8 @@ export default function InterviewResultsPage() {
         </div>
 
         {/* Weaknesses */}
-        <div className="p-6 rounded-2xl glass-card border border-amber-800/30 space-y-3 shadow-xl">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+        <div className="p-6 rounded-3xl bg-[#060a1d]/85 border border-amber-500/20 backdrop-blur-2xl space-y-3 shadow-xl">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-amber-400 flex items-center gap-2">
             <AlertTriangle className="w-4 h-4" />
             Areas for Improvement
           </h3>
@@ -231,9 +234,9 @@ export default function InterviewResultsPage() {
       </div>
 
       {/* 5. QUESTION-BY-QUESTION AUDIT */}
-      <div className="p-6 sm:p-8 rounded-2xl glass-card border border-slate-800 space-y-4 shadow-xl">
-        <h3 className="text-base font-bold text-white flex items-center gap-2">
-          <Layers className="w-4 h-4 text-indigo-400" />
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#060a1d]/85 border border-white/[0.08] backdrop-blur-2xl space-y-4 shadow-xl relative z-10">
+        <h3 className="text-base font-semibold text-white flex items-center gap-2">
+          <Layers className="w-4 h-4 text-sky-400" />
           Question-by-Question Detailed Review
         </h3>
 
@@ -242,14 +245,14 @@ export default function InterviewResultsPage() {
             const isExpanded = Boolean(expandedQuestions[idx]);
             const qScore = q.evaluation?.score || 8;
             return (
-              <div key={idx} className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-3">
+              <div key={idx} className="p-4 rounded-2xl bg-[#030712] border border-white/[0.06] space-y-3">
                 <div
                   onClick={() => toggleExpand(idx)}
                   className="flex items-center justify-between cursor-pointer select-none"
                 >
                   <div className="space-y-1 pr-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-indigo-400 font-mono">Q{idx + 1}.</span>
+                      <span className="text-xs font-bold text-sky-400 font-mono">Q{idx + 1}.</span>
                       <Badge variant="default" size="sm">{q.topic}</Badge>
                       {q.isFollowUp && <Badge variant="warning" size="sm">Follow-Up</Badge>}
                     </div>
@@ -257,7 +260,7 @@ export default function InterviewResultsPage() {
                   </div>
 
                   <div className="flex items-center gap-3 shrink-0">
-                    <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
+                    <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
                       {qScore}/10
                     </span>
                     {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
@@ -265,24 +268,24 @@ export default function InterviewResultsPage() {
                 </div>
 
                 {isExpanded && (
-                  <div className="pt-3 border-t border-slate-800/80 space-y-3 text-xs animate-in fade-in duration-150">
+                  <div className="pt-3 border-t border-white/[0.06] space-y-3 text-xs animate-in fade-in duration-150">
                     {/* Candidate Answer */}
-                    <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                    <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
                       <span className="text-[10px] uppercase font-mono text-slate-400 font-bold block mb-1">Your Answer:</span>
                       <p className="text-slate-300 italic">"{q.candidateAnswer || 'No answer submitted'}"</p>
                     </div>
 
                     {/* Exemplary Answer */}
                     {q.evaluation?.betterAnswer && (
-                      <div className="p-3 rounded-lg bg-indigo-950/20 border border-indigo-800/30">
-                        <span className="text-[10px] uppercase font-mono text-indigo-300 font-bold block mb-1">Model Exemplary Answer:</span>
+                      <div className="p-3.5 rounded-xl bg-sky-950/20 border border-sky-400/20">
+                        <span className="text-[10px] uppercase font-mono text-sky-300 font-bold block mb-1">Model Exemplary Answer:</span>
                         <p className="text-slate-300">{q.evaluation.betterAnswer}</p>
                       </div>
                     )}
 
                     {/* Interviewer Perspective */}
                     {q.evaluation?.interviewerPerspective && (
-                      <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
+                      <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
                         <span className="text-[10px] uppercase font-mono text-cyan-300 font-bold block mb-1">Interviewer Feedback:</span>
                         <p className="text-slate-300">{q.evaluation.interviewerPerspective}</p>
                       </div>
@@ -296,9 +299,9 @@ export default function InterviewResultsPage() {
       </div>
 
       {/* 6. NEXT ACTION STEPS & ROADMAP */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 sm:p-7 rounded-3xl bg-[#060a1d]/90 border border-white/[0.08] backdrop-blur-2xl shadow-xl relative z-10">
         <div className="space-y-1 text-center sm:text-left">
-          <h4 className="text-sm font-bold text-white">Next Step: Eliminate Detected Weaknesses</h4>
+          <h4 className="text-sm font-semibold text-white">Next Step: Eliminate Detected Weaknesses</h4>
           <p className="text-xs text-slate-400">
             Generate or follow your personalized 7-Day study plan calibrated from this session.
           </p>
@@ -307,14 +310,14 @@ export default function InterviewResultsPage() {
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <Link
             to="/interview/setup"
-            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 flex items-center justify-center gap-1.5 transition-all"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-full lumine-pill-secondary text-xs font-medium flex items-center justify-center gap-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             Take Another Interview
           </Link>
           <Link
             to="/preparation-plan"
-            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-glow-primary flex items-center justify-center gap-1.5 transition-all"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-full lumine-pill-primary text-xs font-semibold flex items-center justify-center gap-1.5"
           >
             <Calendar className="w-3.5 h-3.5" />
             View Preparation Plan

@@ -15,9 +15,10 @@ import {
   ShieldCheck,
   Award,
   Play,
-  Flame
+  Flame,
+  ChevronRight,
+  Layers
 } from 'lucide-react';
-import CircularProgress from '../components/common/CircularProgress.jsx';
 import Badge from '../components/common/Badge.jsx';
 
 export default function LandingPage() {
@@ -30,148 +31,182 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0F1D] text-slate-100 overflow-hidden">
-      {/* Background Decorative Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-gradient-to-b from-indigo-500/15 via-purple-500/5 to-transparent blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#030712] text-slate-100 overflow-hidden relative">
+      {/* =========================================================================
+          CELESTIAL HORIZON & COSMIC LIGHT SYSTEM (NEONE / LUMINE THEME)
+          ========================================================================= */}
+      <div className="absolute top-0 left-0 right-0 h-[750px] overflow-hidden pointer-events-none select-none z-0">
+        {/* Soft Aurora / Light Shaft */}
+        <div className="celestial-light-shaft" />
 
-      {/* HERO SECTION */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* The Glowing Celestial Planet Arc */}
+        <div className="celestial-arc-wrapper">
+          <div className="celestial-arc" />
+        </div>
+
+        {/* Starfield / Stardust Floating Dots */}
+        <div className="absolute inset-0">
+          <div className="star-particle w-1 h-1 top-[18%] left-[22%] opacity-80 shadow-[0_0_8px_#fff]" />
+          <div className="star-particle w-0.5 h-0.5 top-[12%] left-[38%] opacity-40" />
+          <div className="star-particle w-1 h-1 top-[28%] left-[45%] opacity-60 shadow-[0_0_6px_#93c5fd]" />
+          <div className="star-particle w-1.5 h-1.5 top-[15%] right-[25%] opacity-85 shadow-[0_0_10px_#fff]" />
+          <div className="star-particle w-0.5 h-0.5 top-[22%] right-[35%] opacity-50" />
+          <div className="star-particle w-1 h-1 top-[35%] left-[15%] opacity-70" />
+          <div className="star-particle w-1 h-1 top-[32%] right-[18%] opacity-75 shadow-[0_0_6px_#60a5fa]" />
+          <div className="star-particle w-0.5 h-0.5 top-[40%] right-[42%] opacity-40" />
+          <div className="star-particle w-1 h-1 top-[8%] left-[55%] opacity-65" />
+          <div className="star-particle w-0.5 h-0.5 top-[48%] left-[28%] opacity-50" />
+        </div>
+      </div>
+
+      {/* =========================================================================
+          HERO SECTION (Framed inside the Celestial Glowing Horizon Circle)
+          ========================================================================= */}
+      <section className="relative pt-20 pb-20 md:pt-28 md:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center max-w-3xl mx-auto space-y-6">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold shadow-glow-primary">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Next-Generation Adaptive AI Interview Engine</span>
-          </div>
-
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Ace Your Next Interview With <span className="ai-gradient-text">AI</span>
+          {/* Main Title with Lumine Gradient */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-white leading-[1.15]">
+            Ace Your Next Interview With <br className="hidden sm:inline" />
+            <span className="lumine-gradient-text font-bold">AI</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Practice smarter with personalized mock interviews, real-time feedback, target job skill matching, 50 coding challenges, and an AI-powered preparation roadmap.
+          <p className="text-sm sm:text-base md:text-lg text-slate-300/90 leading-relaxed max-w-2xl mx-auto font-normal">
+            A minimal AI-powered system that transforms complex interview prep into clear, glowing, effortless structures — helping you land dream offers faster.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          {/* Action Pill Buttons */}
+          <div className="flex flex-row items-center justify-center gap-3 pt-4">
             <button
               onClick={handleDemoStart}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-glow-primary transition-all flex items-center justify-center gap-2 group"
+              className="lumine-pill-primary px-7 py-3 text-sm flex items-center justify-center gap-2 group cursor-pointer"
             >
-              Start Mock Interview
+              Get Started
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <a
               href="#how-it-works"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition-all text-center"
+              className="lumine-pill-secondary px-6 py-3 text-sm flex items-center justify-center gap-2"
             >
-              Explore Features
+              Watch Demo
             </a>
           </div>
 
-          <div className="flex items-center justify-center gap-6 pt-4 text-xs text-slate-400">
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> STAR Behavioral Scoring</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Architectural Depth Analysis</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> 100% Free Demo Mode</span>
+          {/* Key Value Propositions */}
+          <div className="flex flex-wrap items-center justify-center gap-6 pt-5 text-xs text-slate-400">
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-sky-400" /> STAR Behavioral Scoring</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-sky-400" /> 50 FAANG Coding Drills</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-sky-400" /> 1-Click Free Instant Demo</span>
           </div>
         </div>
 
-        {/* HERO INTERACTIVE DASHBOARD PREVIEW */}
-        <div className="mt-14 max-w-5xl mx-auto rounded-2xl glass-card border border-slate-700/80 shadow-2xl p-4 sm:p-6 relative overflow-hidden">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-5">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-rose-500" />
-              <div className="w-3 h-3 rounded-full bg-amber-500" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500" />
-              <span className="text-xs text-slate-400 font-mono ml-2">ai-interview-session.live</span>
+        {/* =========================================================================
+            HERO DASHBOARD PREVIEW (EMERGING FROM GLOWING HORIZON)
+            ========================================================================= */}
+        <div className="mt-16 max-w-5xl mx-auto rounded-3xl lumine-preview-card p-4 sm:p-7 relative overflow-hidden">
+          {/* Header Bar */}
+          <div className="flex items-center justify-between border-b border-white/[0.08] pb-3.5 mb-6">
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              </div>
+              <span className="text-[11px] text-slate-400 font-mono ml-2">session.interview.lumine.live</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge variant="cyan" size="sm">Technical & System Design</Badge>
-              <Badge variant="purple" size="sm">Adaptive Level 2</Badge>
+              <Badge variant="cyan" size="sm">System Design & Tech</Badge>
+              <Badge variant="primary" size="sm">Adaptive Level 2</Badge>
             </div>
           </div>
 
+          {/* Interior Preview UI */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            {/* Interviewer Avatar Card */}
-            <div className="p-5 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col items-center text-center space-y-3">
-              <div className="w-20 h-20 rounded-full bg-indigo-600/20 border-2 border-indigo-500 flex items-center justify-center relative shadow-glow-primary">
-                <Bot className="w-9 h-9 text-indigo-400" />
-                <span className="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950" />
+            {/* Interviewer Persona Card */}
+            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col items-center text-center space-y-3">
+              <div className="w-18 h-18 rounded-full bg-sky-500/10 border border-sky-400/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(56,189,248,0.25)]">
+                <Bot className="w-8 h-8 text-sky-300" />
+                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#050918]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">Sarah Chen</h4>
+                <h4 className="text-sm font-semibold text-white">Sarah Chen</h4>
                 <p className="text-xs text-slate-400">Principal Bar Raiser</p>
               </div>
-              <div className="flex items-center gap-1 text-[11px] text-cyan-300 font-mono bg-cyan-950/60 px-2.5 py-1 rounded-full border border-cyan-800/60">
-                <Sparkles className="w-3 h-3 text-cyan-400" />
-                Interactive Evaluation Engine
+              <div className="flex items-center gap-1.5 text-[11px] text-sky-300 font-mono bg-sky-500/10 px-3 py-1 rounded-full border border-sky-400/20">
+                <span className="text-sky-400">✦</span>
+                <span>Adaptive Neural Evaluation</span>
               </div>
             </div>
 
             {/* Live Question & Answer Feed */}
             <div className="md:col-span-2 space-y-3">
-              <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs">
-                <div className="text-[10px] uppercase font-mono text-indigo-400 font-bold mb-1">AI Question (System Design):</div>
-                <p className="text-slate-200 leading-relaxed font-medium">
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-xs space-y-1.5">
+                <div className="text-[10px] uppercase font-mono text-sky-400 font-semibold tracking-wider">
+                  AI Question (Distributed Architecture):
+                </div>
+                <p className="text-slate-200 leading-relaxed font-normal">
                   "You are architecting an e-commerce platform using React and Node.js. How would you structure your distributed cache and manage state when 100K users access concurrently?"
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-800/40 text-xs space-y-2">
+              <div className="p-4 rounded-2xl bg-sky-950/20 border border-sky-800/30 text-xs space-y-2">
                 <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>Candidate Response</span>
-                  <span className="text-emerald-400">Technical Depth: 9/10</span>
+                  <span className="text-slate-300">Candidate Response</span>
+                  <span className="text-emerald-400 font-semibold">Technical Depth: 9/10</span>
                 </div>
-                <p className="text-slate-200">
+                <p className="text-slate-300 leading-relaxed">
                   "We implemented a cache-aside pattern using Redis cluster with LRU eviction and partitioned cache keys by tenant ID to avoid hot-key contention..."
                 </p>
               </div>
 
               {/* Instant Evaluation snippet */}
-              <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-950/20 border border-emerald-800/30 text-xs">
-                <span className="text-emerald-300 font-semibold flex items-center gap-1.5">
+              <div className="flex items-center justify-between p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 text-xs">
+                <span className="text-emerald-300 font-medium flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                   Score: 9/10 • Strong Cache-Aside Architecture
                 </span>
-                <span className="text-indigo-400 text-[11px] font-mono">Next: Probing Edge Cases →</span>
+                <span className="text-sky-400 text-[11px] font-mono hidden sm:inline">Next: Probing Edge Cases →</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* STATISTICS COUNTER SECTION */}
-      <section className="border-y border-slate-800/80 bg-slate-950/50 py-12">
+      {/* =========================================================================
+          STATISTICS COUNTER SECTION
+          ========================================================================= */}
+      <section className="border-y border-white/[0.06] bg-[#02040A]/60 py-12 relative z-10 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-1">
-              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono ai-gradient-text">10K+</div>
-              <p className="text-sm font-semibold text-slate-300">Questions Practiced</p>
-              <p className="text-xs text-slate-500">Across Java, React, System Design & STAR HR</p>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono lumine-gradient-text">10K+</div>
+              <p className="text-sm font-medium text-slate-200">Questions Practiced</p>
+              <p className="text-xs text-slate-400">Across Java, React, System Design & STAR HR</p>
             </div>
             <div className="space-y-1">
-              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono ai-gradient-text">95%</div>
-              <p className="text-sm font-semibold text-slate-300">Personalized Feedback</p>
-              <p className="text-xs text-slate-500">Instant mistake breakdown & exemplary answers</p>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono lumine-gradient-text">95%</div>
+              <p className="text-sm font-medium text-slate-200">Personalized Feedback</p>
+              <p className="text-xs text-slate-400">Instant mistake breakdown & exemplary answers</p>
             </div>
             <div className="space-y-1">
-              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono ai-gradient-text">24/7</div>
-              <p className="text-sm font-semibold text-slate-300">AI Interview Practice</p>
-              <p className="text-xs text-slate-500">Adaptive difficulty & Bar Raiser personas</p>
+              <div className="text-3xl sm:text-4xl font-extrabold text-white font-mono lumine-gradient-text">24/7</div>
+              <p className="text-sm font-medium text-slate-200">AI Interview Practice</p>
+              <p className="text-xs text-slate-400">Adaptive difficulty & Bar Raiser personas</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHY AI INTERVIEW COACH SECTION */}
-      <section id="features" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* =========================================================================
+          FEATURES SECTION
+          ========================================================================= */}
+      <section id="features" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <Badge variant="primary">The Competitive Edge</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
             Why AI Interview Coach?
           </h2>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-400 leading-relaxed">
             Unlike generic chatbots, our platform simulates realistic hiring bars, probes answers deeply, and helps you systematically eliminate weaknesses.
           </p>
         </div>
@@ -179,10 +214,10 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-400/25 flex items-center justify-center text-sky-400">
               <Bot className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">Personalized Interviews</h3>
+            <h3 className="text-base font-semibold text-white">Personalized Interviews</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Every interview adapts dynamically to your experience level, target role, and past answers—just like a senior technical interviewer.
             </p>
@@ -190,21 +225,21 @@ export default function LandingPage() {
 
           {/* Card 2 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-              <Briefcase className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-400/25 flex items-center justify-center text-indigo-400">
+              <Code className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">Job Description Matcher</h3>
+            <h3 className="text-base font-semibold text-white">Targeted Skill Drills</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Compare your skills against target job descriptions. Calculate match score percentages, detect critical skill gaps, and get recommendations.
+              Drill deep into essential computer science topics, distributed systems, concurrency, and behavioral questions with instant feedback.
             </p>
           </div>
 
           {/* Card 3 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/25 flex items-center justify-center text-cyan-400">
               <TrendingUp className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">Adaptive Difficulty Engine</h3>
+            <h3 className="text-base font-semibold text-white">Adaptive Difficulty Engine</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Strong answers trigger deeper follow-ups (Level 3 Bar Raiser). Weaker answers trigger supportive clarifications and analogies.
             </p>
@@ -212,10 +247,10 @@ export default function LandingPage() {
 
           {/* Card 4 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/25 flex items-center justify-center text-emerald-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">AI Evaluation & STAR Framework</h3>
+            <h3 className="text-base font-semibold text-white">AI Evaluation & STAR Framework</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Get scored on technical knowledge, clarity, depth, and STAR structure (Situation, Task, Action, Result) with mistake explanations.
             </p>
@@ -223,10 +258,10 @@ export default function LandingPage() {
 
           {/* Card 5 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-400/25 flex items-center justify-center text-rose-400">
               <Zap className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">Interview Mirror Perception</h3>
+            <h3 className="text-base font-semibold text-white">Interview Mirror Perception</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Understand how interviewers actually perceive your responses. Get constructive analysis on what hiring managers think.
             </p>
@@ -234,10 +269,10 @@ export default function LandingPage() {
 
           {/* Card 6 */}
           <div className="p-6 rounded-2xl glass-card glass-card-hover space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/25 flex items-center justify-center text-amber-400">
               <Code className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-white">50 FAANG Coding Practice Studio</h3>
+            <h3 className="text-base font-semibold text-white">50 FAANG Coding Practice Studio</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Solve data structure challenges with live test runners and AI complexity evaluations (Time & Space O(N)) and optimization tips.
             </p>
@@ -245,12 +280,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS (6 STEPS) */}
-      <section id="how-it-works" className="py-20 bg-slate-950/60 border-t border-slate-800/80">
+      {/* =========================================================================
+          HOW IT WORKS (6 STEPS)
+          ========================================================================= */}
+      <section id="how-it-works" className="py-24 bg-[#02040A]/80 border-t border-white/[0.06] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <Badge variant="cyan">Structured Methodology</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
               How It Works
             </h2>
             <p className="text-sm text-slate-400">
@@ -261,21 +298,21 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { step: '01', title: 'Target Role & Skills', desc: 'Select your target engineering specialization and verified technical skill stack.', icon: Target },
-              { step: '02', title: 'Choose Job Description', desc: 'Paste the target job requirements to compute match scores and detect skill gaps.', icon: Briefcase },
+              { step: '02', title: 'Curated Question Bank', desc: 'Browse and practice hundreds of hand-picked interview questions across key tech stacks.', icon: Layers },
               { step: '03', title: 'Practice Interview', desc: 'Engage in conversational mock interviews with adaptive interviewer personas.', icon: Bot },
               { step: '04', title: 'Get AI Feedback', desc: 'Receive score breakdowns, interviewer perspective, and exemplary model answers.', icon: Sparkles },
-              { step: '05', title: 'Target Weaknesses', desc: 'Follow dynamically generated 7-day study plans targeting your diagnosed gaps.', icon: TrendingUp },
+              { step: '05', title: 'Target Weaknesses', desc: 'Practice targeted drills designed to systematically conquer diagnosed skill gaps.', icon: TrendingUp },
               { step: '06', title: 'Become Interview Ready', desc: 'Watch your Readiness Score climb as you master technical and behavioral rounds.', icon: Award }
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 relative overflow-hidden group hover:border-indigo-500/40 transition-all">
-                  <span className="text-3xl font-extrabold font-mono text-slate-800 group-hover:text-indigo-500/20 transition-colors">
+                <div key={idx} className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-3 relative overflow-hidden group hover:border-sky-400/30 transition-all backdrop-blur-md">
+                  <span className="text-3xl font-extrabold font-mono text-white/10 group-hover:text-sky-400/30 transition-colors">
                     {item.step}
                   </span>
                   <div className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-indigo-400" />
-                    <h4 className="text-base font-bold text-white">{item.title}</h4>
+                    <Icon className="w-4 h-4 text-sky-400" />
+                    <h4 className="text-base font-semibold text-white">{item.title}</h4>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
                 </div>
@@ -285,30 +322,35 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <section className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="p-10 rounded-3xl bg-gradient-to-tr from-indigo-950 via-slate-900 to-slate-950 border border-indigo-500/30 shadow-2xl space-y-6 relative overflow-hidden">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold">
-            <Flame className="w-3.5 h-3.5 fill-indigo-400" />
+      {/* =========================================================================
+          FINAL CALL TO ACTION
+          ========================================================================= */}
+      <section className="py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="p-10 sm:p-14 rounded-3xl bg-gradient-to-b from-sky-950/40 via-[#050a1c] to-[#02040a] border border-sky-400/25 shadow-[0_0_50px_-10px_rgba(56,189,248,0.25)] space-y-6 relative overflow-hidden">
+          {/* Subtle top rim light */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-sky-400/80 to-transparent" />
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-sky-400/20 text-sky-300 text-xs font-medium">
+            <Flame className="w-3.5 h-3.5 fill-sky-400" />
             <span>Ready for your next career milestone?</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
             Ready For Your Next Interview?
           </h2>
           <p className="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
             Join thousands of software engineers, backend developers, and tech leads practicing with the smartest AI coach on the market.
           </p>
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="pt-3 flex flex-row items-center justify-center gap-3">
             <button
               onClick={handleDemoStart}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-glow-primary transition-all flex items-center justify-center gap-2"
+              className="lumine-pill-primary px-8 py-3 text-sm flex items-center justify-center gap-2"
             >
               Start Practicing Now
               <ArrowRight className="w-4 h-4" />
             </button>
             <Link
               to="/signup"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-sm transition-all"
+              className="lumine-pill-secondary px-6 py-3 text-sm"
             >
               Create Free Account
             </Link>

@@ -53,6 +53,15 @@ app.use('/api/resume', resumeRoutes);
 // Central Error Handler
 app.use(errorHandler);
 
+// Serve Frontend client build
+const clientDistPath = path.resolve(__dirname, '../client/dist');
+app.use(express.static(clientDistPath));
+
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.resolve(clientDistPath, 'index.html'));
+});
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🤖 AI Interview Coach Server running on http://127.0.0.1:${PORT}`);
   console.log(`📡 AI Mode: ${process.env.GEMINI_API_KEY ? 'Live Gemini Engine Enabled' : 'Smart Contextual Fallback Active'}`);
